@@ -18,6 +18,69 @@ public class Authentication
             auth_obj = new Authentication();
         return auth_obj;
     }
+    
+    public void signup(String userName , String email , String password , String accountType) throws SQLException
+    {
+        Storage storage = Storage.getInstance();
+        if(checkSignupConstraints(userName , email , password , accountType))
+        {
+            if(!storage.isUserRegistered(email))
+            {
+                User user = new User(userName , email , password , accountType);
+                storage.saveUserInitial(user);
+                online_user = user;
+                GUI.getForm().loadPanel("profile");
+                online_user.getUserAccount().displayProfile();
+            }
+            else
+            {
+                Toast t = new Toast("Email already in use!", 495, 505);
+                t.showtoast(); 
+            }
+        }
+    }
+  
+    private boolean checkSignupConstraints(String userName , String email , String password , String accountType)
+    {   
+        if(!userName.isEmpty())
+        {
+            if(email.contains("@") && !email.isEmpty())
+            {
+                if(password.length() >= 6)
+                {
+                    
+                    if(accountType.isEmpty())
+                    {
+                        Toast t = new Toast("Select account type!", 495, 505);
+                        t.showtoast(); 
+                        return false;
+                    }
+                    
+                    return true;
+                }
+                else
+                {
+                   Toast t = new Toast("Password should consist of atleast six characters!", 425, 505);
+                   t.showtoast();
+                   return false;
+                }
+            }   
+            else 
+            {
+                 Toast t = new Toast("Enter valid email!", 495, 505);
+                 t.showtoast(); 
+                 return false;
+            }
+        }
+        else
+        {
+            
+            Toast t = new Toast("Please enter username!", 495, 505);
+            t.showtoast(); 
+            return false;
+        }    
+    }
+
 
     public void login(String email, String password) throws SQLException 
     {

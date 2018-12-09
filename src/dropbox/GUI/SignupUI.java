@@ -15,12 +15,12 @@ import java.util.logging.Logger;
  *
  * @author Aiman Nawaz
  */
-public class LoginUI extends javax.swing.JPanel {
+public class SignupUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form Login
+     * Creates new form SignupUI
      */
-    public LoginUI() {
+    public SignupUI() {
         initComponents();
     }
 
@@ -33,19 +33,23 @@ public class LoginUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        emailField = new javax.swing.JTextField();
+        userNameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        loginButton = new javax.swing.JButton();
+        emailField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        basic = new javax.swing.JRadioButton();
+        dropBoxPlus = new javax.swing.JRadioButton();
+        signupButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(97, 8, 43));
+        setMaximumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/1st.png"))); // NOI18N
@@ -53,34 +57,38 @@ public class LoginUI extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setText("Sign in");
+        jLabel2.setText("Sign up");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Email");
+        jLabel3.setText("Username");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Password");
+        jLabel4.setText("Email");
 
-        loginButton.setBackground(new java.awt.Color(0, 97, 240));
-        loginButton.setForeground(new java.awt.Color(255, 255, 255));
-        loginButton.setText("Sign in");
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setText("Password");
+
+        basic.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(basic);
+        basic.setText("Basic");
+
+        dropBoxPlus.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(dropBoxPlus);
+        dropBoxPlus.setText("DropBox+");
+
+        signupButton.setBackground(new java.awt.Color(0, 97, 240));
+        signupButton.setForeground(new java.awt.Color(255, 255, 255));
+        signupButton.setText("Sign up");
+        signupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
+                signupButtonActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel5.setText("This page is protected by reCAPTCHA");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel6.setText("and subject to the Google Privacy Policy");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Sign up");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Sign in");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                openSignIn(evt);
             }
         });
 
@@ -88,42 +96,52 @@ public class LoginUI extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(signupButton, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(userNameField)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel7)
-                        .addComponent(loginButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(emailField)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(dropBoxPlus)
+                        .addGap(18, 18, 18)
+                        .addComponent(basic))
+                    .addComponent(passwordField))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
-                .addGap(128, 128, 128)
+                .addComponent(jLabel6)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dropBoxPlus)
+                    .addComponent(basic))
                 .addGap(18, 18, 18)
-                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -150,26 +168,43 @@ public class LoginUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+    private void openSignIn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openSignIn
         // TODO add your handling code here:
-        String password = new String(passwordField.getPassword());
-        String email = emailField.getText();
-   
-        try {
-            Authentication.getInstance().login(email , password);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }//GEN-LAST:event_loginButtonActionPerformed
+       
+        GUI gui = GUI.getForm();
+        gui.loadPanel("login");
+    }//GEN-LAST:event_openSignIn
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        GUI.getForm().loadPanel("signup");// TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7MouseClicked
+    private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
+        // TODO add your handling code here:
+        String email = emailField.getText();
+        String userName = userNameField.getText();
+        String password = new String(passwordField.getPassword());     
+        String accountType = "";
+       
+        if(basic.isSelected())
+           accountType += "basic";
+       
+        else if(dropBoxPlus.isSelected())
+           accountType += "dropboxplus";
+       
+        Authentication mAuth = Authentication.getInstance();
+        try
+        { 
+            mAuth.signup(userName , email , password , accountType);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(SignupUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_signupButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton basic;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton dropBoxPlus;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -177,9 +212,9 @@ public class LoginUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JButton signupButton;
+    private javax.swing.JTextField userNameField;
     // End of variables declaration//GEN-END:variables
 }

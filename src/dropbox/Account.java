@@ -198,6 +198,32 @@ public abstract class Account
                     }
                 });
                 optionsMenu.add(editItem);
+                
+                JMenuItem deleteItem = new JMenuItem("Delete");
+                deleteItem.setActionCommand(file.getId());
+                deleteItem.setBackground(Color.WHITE);
+                deleteItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            Storage.getInstance().deleteFile(e.getActionCommand());
+                            HashMap folderInfo;
+                            folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                            Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                            Authentication.online_user.getUserAccount().displayFiles(f);
+                 
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(deleteItem);
+                
                
                 
                 bar.add(optionsMenu);
@@ -261,6 +287,31 @@ public abstract class Account
                 });
                 optionsMenu.add(editItem);
                 
+                JMenuItem deleteItem = new JMenuItem("Delete");
+                deleteItem.setActionCommand(file.getId());
+                deleteItem.setBackground(Color.WHITE);
+                deleteItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            Storage.getInstance().deleteFile(e.getActionCommand());
+                            HashMap folderInfo;
+                            folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                            Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                            Authentication.online_user.getUserAccount().displayFiles(f);
+                 
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(deleteItem);
+                
                 
                 
                 bar.add(optionsMenu);
@@ -321,6 +372,32 @@ public abstract class Account
                 });
                 optionsMenu.add(editItem);
                 
+                JMenuItem deleteItem = new JMenuItem("Delete");
+                deleteItem.setActionCommand(file.getId());
+                deleteItem.setBackground(Color.WHITE);
+                deleteItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            Storage.getInstance().deleteFile(e.getActionCommand());
+                            HashMap folderInfo;
+                            folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                            Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                            Authentication.online_user.getUserAccount().displayFiles(f);
+                 
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(deleteItem);
+                
+                
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
                
@@ -378,6 +455,31 @@ public abstract class Account
                     }
                 });
                 optionsMenu.add(editItem);
+                
+                JMenuItem deleteItem = new JMenuItem("Delete");
+                deleteItem.setActionCommand(file.getId());
+                deleteItem.setBackground(Color.WHITE);
+                deleteItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            Storage.getInstance().deleteFile(e.getActionCommand());
+                            HashMap folderInfo;
+                            folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                            Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                            Authentication.online_user.getUserAccount().displayFiles(f);
+                 
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(deleteItem);
                 
                 
                 

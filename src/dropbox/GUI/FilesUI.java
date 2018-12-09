@@ -268,6 +268,11 @@ public class FilesUI extends javax.swing.JPanel {
 
         updateInfo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         updateInfo.setText("Update Info");
+        updateInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateInfoMouseClicked(evt);
+            }
+        });
 
         createFileButton.setBackground(new java.awt.Color(0, 97, 240));
         createFileButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -845,6 +850,11 @@ public class FilesUI extends javax.swing.JPanel {
         
         newFolderDialog.setVisible(false);
     }//GEN-LAST:event_newFolderDialogWindowClosing
+
+    private void updateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateInfoMouseClicked
+        GUI.getForm().loadPanel("updateinfo");
+// TODO add your handling code here:
+    }//GEN-LAST:event_updateInfoMouseClicked
 
     
     public static void displayEditNameDialog(String fileID)

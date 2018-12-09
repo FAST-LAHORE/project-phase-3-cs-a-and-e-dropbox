@@ -64,6 +64,11 @@ public class ProfileUI extends javax.swing.JPanel {
 
         updateInfo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         updateInfo.setText("Update Info");
+        updateInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateInfoMouseClicked(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 97, 240));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,6 +182,11 @@ public class ProfileUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         GUI.getForm().loadPanel("files");
     }//GEN-LAST:event_filesLabelMouseClicked
+
+    private void updateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateInfoMouseClicked
+        GUI.getForm().loadPanel("updateinfo");
+// TODO add your handling code here:
+    }//GEN-LAST:event_updateInfoMouseClicked
 
     
     public void setProfileAttributes(String username)

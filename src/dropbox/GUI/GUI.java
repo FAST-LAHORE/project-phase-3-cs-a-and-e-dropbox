@@ -52,6 +52,16 @@ public class GUI
             instance.frame.setContentPane(instance.container);
             
         }
+        else if(panelType.toLowerCase().equals("signup"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            instance.jp=new SignupUI();
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
         else if(panelType.toLowerCase().equals("profile"))
         {
             if(instance.container.getComponentCount() > 0)
@@ -68,6 +78,16 @@ public class GUI
                 instance.container.removeAll();
          
             instance.jp=new SplashUI();
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
+        else if(panelType.toLowerCase().equals("updateinfo"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            instance.jp=new UpdateAccountInfoUI();
             instance.container.add(instance.jp);
             instance.frame.setContentPane(instance.container);
             

@@ -68,7 +68,90 @@ public class User
    
     }
 
-     
+    public boolean updateEmail(String newEmail , String currentPassword) throws SQLException
+    {
+        if(currentPassword.equals(Authentication.online_user.getPassword()))
+        {
+            if(newEmail.contains("@") && !newEmail.isEmpty())
+            {
+                if(!Storage.getInstance().isUserRegistered(newEmail))
+                {
+                    Storage.getInstance().updateEmail(newEmail, Authentication.online_user.email);
+                    Authentication.online_user.email = newEmail;        
+                    return true;
+                }
+                else
+                {
+                    Toast t = new Toast("Email already in use!", 495, 505);
+                    t.showtoast(); 
+                    return false;    
+                }
+            }
+            else
+            {
+                Toast t = new Toast("Invalid Email!", 495, 505);
+                t.showtoast();
+                return false;
+            }
+        }
+        else
+        {
+            Toast t = new Toast("Wrong password!", 495, 505);
+            t.showtoast();
+            return false;
+        }
+               
+    }
+    
+    public boolean updatePassword(String newPassword , String currentPassword) throws SQLException
+    {
+        if(currentPassword.equals(Authentication.online_user.getPassword()))
+        {
+            if(newPassword.length() >= 6)
+            {
+                Storage.getInstance().updatePassword(newPassword, Authentication.online_user.email);
+                Authentication.online_user.password = newPassword;        
+                return true;
+            }
+            else
+            {
+                Toast t = new Toast("Password should consist of atleast six characters!", 495, 505);
+                t.showtoast();
+                return false;
+            }
+        }
+        else
+        {
+            Toast t = new Toast("Wrong password!", 495, 505);
+            t.showtoast();
+            return false;
+        }
+    }
+    
+    public boolean updateUserName(String newUserName , String currentPassword) throws SQLException
+    {
+        if(currentPassword.equals(Authentication.online_user.getPassword()))
+        {
+            if(!newUserName.isEmpty())
+            {
+                Storage.getInstance().updateUserName(newUserName, Authentication.online_user.email);
+                Authentication.online_user.userName = newUserName;        
+                return true;
+            }
+            else
+            {
+                Toast t = new Toast("Enter username!", 495, 505);
+                t.showtoast();
+                return false;
+            }
+        }
+        else
+        {
+            Toast t = new Toast("Wrong password!", 495, 505);
+            t.showtoast();
+            return false;
+        }
+    }
     
     
     
