@@ -4,6 +4,8 @@ import java.io.File;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Storage 
 {
@@ -15,6 +17,7 @@ public class Storage
     private static String FOLDER_TABLE = "folder";
     private static String FILE_TABLE = "file";
     private static String SHARED_FILE_TABLE = "shared_files";
+    private static String PAPER = "paper"; 
     
     
     
@@ -213,6 +216,9 @@ public class Storage
         storage.dbStatment.executeUpdate(builder.toString());
     }
     
+   
+    
+    
     public void deleteFile(String fileID) throws SQLException           
     {   
         String type = loadFileType(fileID);
@@ -358,6 +364,89 @@ public class Storage
         ResultSet users = storage.dbStatment.executeQuery(sql); 
        
        return users;
+    }
+   
+    public void removeFile(String fileID) throws SQLException           
+    {   
+        String sql = "DELETE FROM " + Storage.FILE_TABLE + " WHERE id = \'" + fileID + "\'";
+        storage.dbStatment.executeUpdate(sql);
+    }
+    
+     public void savePaper(String id , String name , String creationDate , String creator) throws SQLException
+    {
+        
+        StringBuilder builder = new StringBuilder();
+        builder.append("INSERT INTO ");
+        builder.append(Storage.PAPER);
+        builder.append(" VALUES (");
+       
+        builder.append("\'");
+        builder.append(id);
+        builder.append("\' , ");
+        
+        builder.append("\'");
+        builder.append(name);
+        builder.append("\' , ");
+        
+        builder.append("\'");
+        builder.append(creationDate);
+        builder.append("\' , ");
+        
+        builder.append("\'");
+        builder.append(creator);
+        builder.append("\')");
+        
+        
+        storage.dbStatment.executeUpdate(builder.toString());
+    }
+
+    public ResultSet retrivePaper(String email) throws SQLException
+    {
+         String sql = "SELECT * FROM " + Storage.PAPER + " WHERE creator = \'" + email + "\'";
+       return storage.dbStatment.executeQuery(sql);
+    }
+    
+    public void ShareFile(String receiverEmail , String File_id) throws SQLException           
+    { 
+           
+       StringBuilder builder = new StringBuilder();
+        builder.append("INSERT INTO ");
+        builder.append("manageaccess");
+        builder.append(" VALUES (");
+       
+        builder.append("\'");
+        builder.append(File_id);
+        builder.append("\' , ");
+        
+        builder.append("\'");
+        builder.append(receiverEmail);
+        builder.append("\') ");
+        
+        
+        
+        storage.dbStatment.executeUpdate(builder.toString());
+          
+        
+        
+    }
+
+      public ResultSet getAccessFiles(String email) throws SQLException {
+    
+       String sql = "SELECT file_id FROM manageaccess WHERE reciever_email = \'" + email + "\'";
+       return storage.dbStatment.executeQuery(sql);
+    
+        
+    }
+
+    public void deleteAccess(String currfile) {
+    
+        try {
+            storage.dbStatment.executeUpdate("Delete from manageaccess where file_id = \'" + currfile + "\'" );
+        } catch (SQLException ex) {
+            Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
     }
     
 }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dropbox.GUI;
 
 import dropbox.Authentication;
@@ -5,22 +10,23 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NotificationsUI extends javax.swing.JPanel {
+/**
+ *
+ * @author Aiman Nawaz
+ */
+public class AccessUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form NotificationsUI
+     * Creates new form AccessUI
      */
-    public NotificationsUI() {
-        initComponents();
-        
-        userNameLabel.setText(Authentication.online_user.getUserName());
+    public AccessUI() {
         try {
-            Authentication.online_user.getUserAccount().displayNotifications();
+            initComponents();
+            Authentication.online_user.getUserAccount().displaySharedFiles();
+            userNameLabel.setText(Authentication.online_user.getEmail());
         } catch (SQLException ex) {
-            Logger.getLogger(NotificationsUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccessUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-  
-        
     }
 
     /**
@@ -39,15 +45,17 @@ public class NotificationsUI extends javax.swing.JPanel {
         updateInfo = new javax.swing.JLabel();
         notificationLabel = new javax.swing.JLabel();
         paperLabel2 = new javax.swing.JLabel();
+        sharedAccess = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        notificationsPanel = new javax.swing.JPanel();
+        sharedPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setName(""); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(247, 249, 250));
 
@@ -78,7 +86,6 @@ public class NotificationsUI extends javax.swing.JPanel {
         });
 
         notificationLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        notificationLabel.setForeground(new java.awt.Color(102, 153, 255));
         notificationLabel.setText("Notifications");
         notificationLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,6 +98,15 @@ public class NotificationsUI extends javax.swing.JPanel {
         paperLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 paperLabel2MouseClicked(evt);
+            }
+        });
+
+        sharedAccess.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        sharedAccess.setForeground(new java.awt.Color(102, 153, 255));
+        sharedAccess.setText("Shared Access");
+        sharedAccess.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sharedAccessMouseClicked(evt);
             }
         });
 
@@ -107,7 +123,8 @@ public class NotificationsUI extends javax.swing.JPanel {
                             .addComponent(filesLabel)
                             .addComponent(updateInfo)
                             .addComponent(notificationLabel)
-                            .addComponent(paperLabel2)))
+                            .addComponent(paperLabel2)
+                            .addComponent(sharedAccess)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel1)))
@@ -128,11 +145,13 @@ public class NotificationsUI extends javax.swing.JPanel {
                 .addComponent(notificationLabel)
                 .addGap(18, 18, 18)
                 .addComponent(paperLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(sharedAccess)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Notifications");
+        jLabel6.setText("Shared Access");
 
         userNameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         userNameLabel.setText("Username ");
@@ -142,18 +161,18 @@ public class NotificationsUI extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(240, 240, 240));
         jLabel9.setText("__________________________________________________________________________________________");
 
-        notificationsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        notificationsPanel.setMaximumSize(new java.awt.Dimension(502, 391));
-        notificationsPanel.setMinimumSize(new java.awt.Dimension(502, 391));
+        sharedPanel.setBackground(new java.awt.Color(255, 255, 255));
+        sharedPanel.setMaximumSize(new java.awt.Dimension(502, 391));
+        sharedPanel.setMinimumSize(new java.awt.Dimension(502, 391));
 
-        javax.swing.GroupLayout notificationsPanelLayout = new javax.swing.GroupLayout(notificationsPanel);
-        notificationsPanel.setLayout(notificationsPanelLayout);
-        notificationsPanelLayout.setHorizontalGroup(
-            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout sharedPanelLayout = new javax.swing.GroupLayout(sharedPanel);
+        sharedPanel.setLayout(sharedPanelLayout);
+        sharedPanelLayout.setHorizontalGroup(
+            sharedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 502, Short.MAX_VALUE)
         );
-        notificationsPanelLayout.setVerticalGroup(
-            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        sharedPanelLayout.setVerticalGroup(
+            sharedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 391, Short.MAX_VALUE)
         );
 
@@ -181,7 +200,7 @@ public class NotificationsUI extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(notificationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sharedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -197,10 +216,15 @@ public class NotificationsUI extends javax.swing.JPanel {
                 .addGap(70, 70, 70)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
-                .addComponent(notificationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sharedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("profile");
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     private void filesLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filesLabelMouseClicked
         // TODO add your handling code here:
@@ -216,15 +240,14 @@ public class NotificationsUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_notificationLabelMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-        GUI.getForm().loadPanel("profile");
-    }//GEN-LAST:event_jLabel2MouseClicked
-
     private void paperLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperLabel2MouseClicked
         // TODO add your handling code here:
         GUI.getForm().loadPanel("paper");
     }//GEN-LAST:event_paperLabel2MouseClicked
+
+    private void sharedAccessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sharedAccessMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sharedAccessMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,10 +259,9 @@ public class NotificationsUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel notificationLabel;
-    public static javax.swing.JPanel notificationsPanel;
-    private javax.swing.JLabel paperLabel;
-    private javax.swing.JLabel paperLabel1;
     private javax.swing.JLabel paperLabel2;
+    private javax.swing.JLabel sharedAccess;
+    public static javax.swing.JPanel sharedPanel;
     private javax.swing.JLabel updateInfo;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables

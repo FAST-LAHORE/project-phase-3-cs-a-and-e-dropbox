@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dropbox.GUI;
 
 import dropbox.Authentication;
@@ -5,22 +10,23 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NotificationsUI extends javax.swing.JPanel {
+/**
+ *
+ * @author Aiman Nawaz
+ */
+public class PaperUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form NotificationsUI
+     * Creates new form PaperUI
      */
-    public NotificationsUI() {
+    public PaperUI() {
         initComponents();
-        
         userNameLabel.setText(Authentication.online_user.getUserName());
         try {
-            Authentication.online_user.getUserAccount().displayNotifications();
+            Authentication.online_user.getUserAccount().displayPapers();
         } catch (SQLException ex) {
-            Logger.getLogger(NotificationsUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PaperUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-  
-        
     }
 
     /**
@@ -38,16 +44,17 @@ public class NotificationsUI extends javax.swing.JPanel {
         filesLabel = new javax.swing.JLabel();
         updateInfo = new javax.swing.JLabel();
         notificationLabel = new javax.swing.JLabel();
-        paperLabel2 = new javax.swing.JLabel();
+        paperLabel = new javax.swing.JLabel();
+        createPaperButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        notificationsPanel = new javax.swing.JPanel();
+        paperPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBackground(new java.awt.Color(247, 249, 250));
 
@@ -78,7 +85,6 @@ public class NotificationsUI extends javax.swing.JPanel {
         });
 
         notificationLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        notificationLabel.setForeground(new java.awt.Color(102, 153, 255));
         notificationLabel.setText("Notifications");
         notificationLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -86,11 +92,21 @@ public class NotificationsUI extends javax.swing.JPanel {
             }
         });
 
-        paperLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        paperLabel2.setText("Paper");
-        paperLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        paperLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        paperLabel.setForeground(new java.awt.Color(102, 153, 255));
+        paperLabel.setText("Paper");
+        paperLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paperLabel2MouseClicked(evt);
+                paperLabelMouseClicked(evt);
+            }
+        });
+
+        createPaperButton.setBackground(new java.awt.Color(0, 97, 240));
+        createPaperButton.setForeground(new java.awt.Color(255, 255, 255));
+        createPaperButton.setText("Create Paper");
+        createPaperButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPaperButtonActionPerformed(evt);
             }
         });
 
@@ -99,19 +115,22 @@ public class NotificationsUI extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(filesLabel)
+                    .addComponent(updateInfo)
+                    .addComponent(notificationLabel)
+                    .addComponent(paperLabel))
+                .addGap(128, 128, 128))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(createPaperButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(filesLabel)
-                            .addComponent(updateInfo)
-                            .addComponent(notificationLabel)
-                            .addComponent(paperLabel2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(109, 109, 109))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,33 +146,32 @@ public class NotificationsUI extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(notificationLabel)
                 .addGap(18, 18, 18)
-                .addComponent(paperLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(paperLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(createPaperButton)
+                .addContainerGap())
         );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Notifications");
+        jLabel6.setText("Paper");
 
         userNameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         userNameLabel.setText("Username ");
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/avatar_profile_photo.PNG"))); // NOI18N
 
-        jLabel9.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel9.setText("__________________________________________________________________________________________");
+        paperPanel.setBackground(new java.awt.Color(255, 255, 255));
+        paperPanel.setMaximumSize(new java.awt.Dimension(502, 391));
+        paperPanel.setMinimumSize(new java.awt.Dimension(502, 391));
 
-        notificationsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        notificationsPanel.setMaximumSize(new java.awt.Dimension(502, 391));
-        notificationsPanel.setMinimumSize(new java.awt.Dimension(502, 391));
-
-        javax.swing.GroupLayout notificationsPanelLayout = new javax.swing.GroupLayout(notificationsPanel);
-        notificationsPanel.setLayout(notificationsPanelLayout);
-        notificationsPanelLayout.setHorizontalGroup(
-            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout paperPanelLayout = new javax.swing.GroupLayout(paperPanel);
+        paperPanel.setLayout(paperPanelLayout);
+        paperPanelLayout.setHorizontalGroup(
+            paperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 502, Short.MAX_VALUE)
         );
-        notificationsPanelLayout.setVerticalGroup(
-            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        paperPanelLayout.setVerticalGroup(
+            paperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 391, Short.MAX_VALUE)
         );
 
@@ -175,14 +193,10 @@ public class NotificationsUI extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel8)))
                         .addGap(134, 134, 134))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(notificationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(paperPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(42, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,13 +208,16 @@ public class NotificationsUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jLabel6))
-                .addGap(70, 70, 70)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(notificationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102)
+                .addComponent(paperPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("profile");
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     private void filesLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filesLabelMouseClicked
         // TODO add your handling code here:
@@ -214,32 +231,35 @@ public class NotificationsUI extends javax.swing.JPanel {
 
     private void notificationLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationLabelMouseClicked
         // TODO add your handling code here:
+        GUI.getForm().loadPanel("notification");
     }//GEN-LAST:event_notificationLabelMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-        GUI.getForm().loadPanel("profile");
-    }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void paperLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperLabel2MouseClicked
+    private void paperLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperLabelMouseClicked
         // TODO add your handling code here:
         GUI.getForm().loadPanel("paper");
-    }//GEN-LAST:event_paperLabel2MouseClicked
+    }//GEN-LAST:event_paperLabelMouseClicked
+
+    private void createPaperButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPaperButtonActionPerformed
+        // TODO add your handling code here:
+            
+            NewPaper a=new NewPaper();
+            a.setVisible(true);
+
+
+    }//GEN-LAST:event_createPaperButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton createPaperButton;
     private javax.swing.JLabel filesLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel notificationLabel;
-    public static javax.swing.JPanel notificationsPanel;
     private javax.swing.JLabel paperLabel;
-    private javax.swing.JLabel paperLabel1;
-    private javax.swing.JLabel paperLabel2;
+    public static javax.swing.JPanel paperPanel;
     private javax.swing.JLabel updateInfo;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables

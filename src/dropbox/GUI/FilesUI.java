@@ -96,6 +96,7 @@ public class FilesUI extends javax.swing.JPanel {
         uploadFileButton = new javax.swing.JButton();
         newFolder = new javax.swing.JLabel();
         notificationLabel = new javax.swing.JLabel();
+        paperLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -383,6 +384,14 @@ public class FilesUI extends javax.swing.JPanel {
             }
         });
 
+        paperLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        paperLabel3.setText("Paper");
+        paperLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paperLabel3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -402,7 +411,8 @@ public class FilesUI extends javax.swing.JPanel {
                                 .addComponent(updateInfo)
                                 .addComponent(uploadFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(createFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(newFolder)))))
+                                .addComponent(newFolder))
+                            .addComponent(paperLabel3))))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -418,6 +428,8 @@ public class FilesUI extends javax.swing.JPanel {
                 .addComponent(updateInfo)
                 .addGap(18, 18, 18)
                 .addComponent(notificationLabel)
+                .addGap(18, 18, 18)
+                .addComponent(paperLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(newFolder)
                 .addGap(18, 18, 18)
@@ -1002,6 +1014,11 @@ public class FilesUI extends javax.swing.JPanel {
         GUI.getForm().loadPanel("notification");
     }//GEN-LAST:event_notificationLabelMouseClicked
 
+    private void paperLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperLabel3MouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("paper");
+    }//GEN-LAST:event_paperLabel3MouseClicked
+
     public static void displayShareNameDialog(String fileID)
     {
         jPanel1.setVisible(false);
@@ -1079,6 +1096,7 @@ public class FilesUI extends javax.swing.JPanel {
     public static javax.swing.JTextField newFolderDialogField;
     public static javax.swing.JTextField newNameDialogLabel;
     private javax.swing.JLabel notificationLabel;
+    private javax.swing.JLabel paperLabel3;
     public static javax.swing.JLabel pathLabel;
     public static javax.swing.JTextField receiverEmailDialog;
     public static javax.swing.JButton saveButton;

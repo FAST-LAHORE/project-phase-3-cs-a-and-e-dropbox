@@ -51,6 +51,7 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
         filesLabel = new javax.swing.JLabel();
         updateInfo = new javax.swing.JLabel();
         notificationLabel = new javax.swing.JLabel();
+        paperLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -171,6 +172,14 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
             }
         });
 
+        paperLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        paperLabel.setText("Paper");
+        paperLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paperLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -182,12 +191,14 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(notificationLabel)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(homeLabel)
-                                .addComponent(filesLabel)
-                                .addComponent(updateInfo)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(paperLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(notificationLabel)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(homeLabel)
+                                    .addComponent(filesLabel)
+                                    .addComponent(updateInfo))))))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,6 +214,8 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
                 .addComponent(updateInfo)
                 .addGap(18, 18, 18)
                 .addComponent(notificationLabel)
+                .addGap(18, 18, 18)
+                .addComponent(paperLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -528,6 +541,11 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
         GUI.getForm().loadPanel("notification");
     }//GEN-LAST:event_notificationLabelMouseClicked
 
+    private void paperLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperLabelMouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("paper");
+    }//GEN-LAST:event_paperLabelMouseClicked
+
     
 int dialogType;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -554,6 +572,7 @@ int dialogType;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField newInfoDialog;
     private javax.swing.JLabel notificationLabel;
+    private javax.swing.JLabel paperLabel;
     private javax.swing.JPasswordField passwordDialog;
     private javax.swing.JLabel passwordPLaceholder;
     private javax.swing.JButton updateDialog;

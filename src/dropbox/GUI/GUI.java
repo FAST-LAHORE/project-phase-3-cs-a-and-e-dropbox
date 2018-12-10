@@ -140,7 +140,49 @@ public class GUI
             instance.frame.setContentPane(instance.container);
             
         }
+        else if(panelType.toLowerCase().equals("paper"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            try {
+                instance.jp=new PaperUI();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
+        else if(panelType.toLowerCase().equals("manageaccess"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            try {
+                instance.jp=new ManageAccess();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
         
+        else if(panelType.toLowerCase().equals("access"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            try {
+                instance.jp=new AccessUI();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
         
      
         

@@ -11,7 +11,8 @@ public class User
     private String email;
     private String password;
     private Account userAccount;
-
+    public static String currfile = null;
+ 
     public User(String userName, String email, String password , String accType)
     {
         this.userName = userName;

@@ -109,7 +109,10 @@ public abstract class AbstractFile extends FileSystemElement
         return true;
     }
     
-      
+    public static void delete(String fileID) throws SQLException
+    {
+        Storage.getInstance().removeFile(fileID);
+    }
     
     
 }

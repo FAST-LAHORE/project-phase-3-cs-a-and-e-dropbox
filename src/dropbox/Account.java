@@ -23,6 +23,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -45,6 +48,10 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import java.util.*;
+import dropbox.AbstractFileFactory.FileType;
+import dropbox.GUI.AccessUI;
+import dropbox.GUI.PaperUI;
+
 
 public abstract class Account
 {
@@ -206,7 +213,7 @@ public abstract class Account
                 
                 JLabel name = new JLabel(file.getName() + ".pdf");
                 name.setName(file.getId());
-                    name.addMouseListener(new MouseListener() {
+                name.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) 
                     {
@@ -337,7 +344,61 @@ public abstract class Account
                     }
                 });
                 optionsMenu.add(shareItem);
-             
+         
+                
+                JMenuItem offline = new JMenuItem("Make Offline");
+                offline.setActionCommand(file.getId());
+                offline.setBackground(Color.WHITE);
+                offline.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            String fileName = Storage.getInstance().loadFileName(fileID);
+                            Path temp = Files.move(Paths.get("./src/CloudStorage/" + fileID + ".pdf") , Paths.get(System.getProperty("user.home") + "\\Desktop\\" + fileName + ".pdf")); 
+
+                            if(temp != null) 
+                            { 
+                                AbstractFile.delete(fileID);
+                                HashMap folderInfo;
+                                folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                                Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                                Authentication.online_user.getUserAccount().displayFiles(f);
+
+                                Toast t = new Toast("This File was Successfully moved to pc storage", 495, 505);
+                                t.showtoast(); 
+                            } 
+                            else
+                            { 
+                                Toast t = new Toast("This File Was Not Moved", 495, 505);
+                                t.showtoast(); 
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                   }
+                });
+                optionsMenu.add(offline);
+         
+                JMenuItem manage = new JMenuItem("Manage Access");
+                manage.setActionCommand(file.getId());
+                manage.setBackground(Color.WHITE);
+                manage.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        Authentication.online_user.currfile = e.getActionCommand();
+                        GUI gui = GUI.getForm();
+                        gui.loadPanel("manageaccess");
+                    }
+                });
+                optionsMenu.add(manage);
                 
                 
                 bar.add(optionsMenu);
@@ -495,6 +556,62 @@ public abstract class Account
                 optionsMenu.add(shareItem);
             
                 
+                
+                JMenuItem offline = new JMenuItem("Make Offline");
+                offline.setActionCommand(file.getId());
+                offline.setBackground(Color.WHITE);
+                offline.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            String fileName = Storage.getInstance().loadFileName(fileID);
+                            Path temp = Files.move(Paths.get("./src/CloudStorage/" + fileID + ".txt") , Paths.get(System.getProperty("user.home") + "\\Desktop\\" + fileName + ".txt")); 
+
+                            if(temp != null) 
+                            { 
+                                AbstractFile.delete(fileID);
+                                HashMap folderInfo;
+                                folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                                Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                                Authentication.online_user.getUserAccount().displayFiles(f);
+
+                                Toast t = new Toast("This File was Successfully moved to pc storage", 495, 505);
+                                t.showtoast(); 
+                            } 
+                            else
+                            { 
+                                Toast t = new Toast("This File Was Not Moved", 495, 505);
+                                t.showtoast(); 
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                   }
+                });
+                optionsMenu.add(offline);
+                
+                
+                JMenuItem manage = new JMenuItem("Manage Access");
+                manage.setActionCommand(file.getId());
+                manage.setBackground(Color.WHITE);
+                manage.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        Authentication.online_user.currfile = e.getActionCommand();
+                        GUI gui = GUI.getForm();
+                        gui.loadPanel("manageaccess");
+                    }
+                });
+                optionsMenu.add(manage);
+                
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
                 
@@ -647,6 +764,62 @@ public abstract class Account
                 });
                 optionsMenu.add(shareItem);
             
+                
+                
+                JMenuItem offline = new JMenuItem("Make Offline");
+                offline.setActionCommand(file.getId());
+                offline.setBackground(Color.WHITE);
+                offline.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            String fileName = Storage.getInstance().loadFileName(fileID);
+                            Path temp = Files.move(Paths.get("./src/CloudStorage/" + fileID + ".mp4") , Paths.get(System.getProperty("user.home") + "\\Desktop\\" + fileName + ".mp4")); 
+
+                            if(temp != null) 
+                            { 
+                                AbstractFile.delete(fileID);
+                                HashMap folderInfo;
+                                folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                                Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                                Authentication.online_user.getUserAccount().displayFiles(f);
+
+                                Toast t = new Toast("This File was Successfully moved to pc storage", 495, 505);
+                                t.showtoast(); 
+                            } 
+                            else
+                            { 
+                                Toast t = new Toast("This File Was Not Moved", 495, 505);
+                                t.showtoast(); 
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                   }
+                });
+                optionsMenu.add(offline);
+                
+                JMenuItem manage = new JMenuItem("Manage Access");
+                manage.setActionCommand(file.getId());
+                manage.setBackground(Color.WHITE);
+                manage.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        Authentication.online_user.currfile = e.getActionCommand();
+                        GUI gui = GUI.getForm();
+                        gui.loadPanel("manageaccess");
+                    }
+                });
+                optionsMenu.add(manage);
+                
                 
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
@@ -802,6 +975,60 @@ public abstract class Account
                 optionsMenu.add(shareItem);
             
                 
+                JMenuItem offline = new JMenuItem("Make Offline");
+                offline.setActionCommand(file.getId());
+                offline.setBackground(Color.WHITE);
+                      offline.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            String fileName = Storage.getInstance().loadFileName(fileID);
+                            Path temp = Files.move(Paths.get("./src/CloudStorage/" + fileID + ".png") , Paths.get(System.getProperty("user.home") + "\\Desktop\\" + fileName + ".png")); 
+
+                            if(temp != null) 
+                            { 
+                                AbstractFile.delete(fileID);
+                                HashMap folderInfo;
+                                folderInfo = Storage.getInstance().loadFolder(pathLabel.getName());
+                                Folder f = new Folder((String)folderInfo.get("id") , (String)folderInfo.get("name") , (String)folderInfo.get("container_id") , (String)folderInfo.get("creation_date"));
+                                Authentication.online_user.getUserAccount().displayFiles(f);
+
+                                Toast t = new Toast("This File was Successfully moved to pc storage", 495, 505);
+                                t.showtoast(); 
+                            } 
+                            else
+                            { 
+                                Toast t = new Toast("This File Was Not Moved", 495, 505);
+                                t.showtoast(); 
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                   }
+                });
+                optionsMenu.add(offline);
+                
+                JMenuItem manage = new JMenuItem("Manage Access");
+                manage.setActionCommand(file.getId());
+                manage.setBackground(Color.WHITE);
+                manage.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        Authentication.online_user.currfile = e.getActionCommand();
+                        GUI gui = GUI.getForm();
+                        gui.loadPanel("manageaccess");
+                    }
+                });
+                optionsMenu.add(manage);
+                
                 
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
@@ -840,7 +1067,7 @@ public abstract class Account
         ArrayList<String> receivedFiles = new ArrayList<String>();
         
         
-        int rows = 0;
+        int rows = 0; 
         while(notifications.next())
         {
             rows++;
@@ -1187,6 +1414,456 @@ public abstract class Account
     }
     
     
+    public void displayPapers() throws SQLException
+    {
+        System.out.println("calllllled");
+        if(PaperUI.paperPanel.getComponentCount() > 0)
+            PaperUI.paperPanel.removeAll();
+        
+        ArrayList<Paper> paperList = new ArrayList<Paper>();
+        
+        ResultSet paperSet = Storage.getInstance().retrivePaper(Authentication.online_user.getEmail());
+        
+        while(paperSet.next())
+        {
+            Paper p = new Paper(paperSet.getString("paper_id") , paperSet.getString("name") , paperSet.getString("creation_date"));
+            paperList.add(p);
+        }
+        
+        
+        
+        int rows = paperList.size(); 
+        rows *= 2;
+        JPanel subPanel = new JPanel();
+        if(rows < 10)
+            rows = 10;
+        subPanel.setLayout(new GridLayout(rows , 2 , 20 , 0));
+        
+        for(int i = 0 ; i < paperList.size() ;i++)
+        {
+            JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+            panelContainer.setBackground(Color.WHITE);
+
+            JLabel icon = new JLabel();    
+            icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/paper_logo.PNG")));
+            panelContainer.add(icon);
+
+            JLabel name = new JLabel(paperList.get(i).getname());
+            name.setName(paperList.get(i).getId());
+            name.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) 
+                    {
+                        File f = new File("./src/CloudStorage/" + e.getComponent().getName() + ".docx");
+        
+                        if(!Desktop.isDesktopSupported())
+                        {
+                            System.out.println("Desktop is not supported");
+                            return;
+                        }
+
+                        Desktop desktop = Desktop.getDesktop();
+                        if(f.exists())
+                            try {
+                                desktop.open(f);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        else
+                            System.out.println("no file");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        
+                    }
+                });
+            panelContainer.add(name);
+
+            
+            panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+
+            panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+
+            
+            panelContainer.setBackground(Color.WHITE);
+            subPanel.add(panelContainer);
+
+            JLabel line = new JLabel("  __________________________________________________________________________  ");
+            line.setForeground(new Color(230 , 232 , 235));
+            subPanel.add(line);
+
+        }
+        
+        JScrollPane scroll = new JScrollPane(subPanel , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setBackground(Color.WHITE);
+        scroll.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+        subPanel.setBackground(Color.WHITE);
+        
+        scroll.setBounds(0, 0, 534, 418);
+        PaperUI.paperPanel.setPreferredSize(new Dimension(534, 418));
+        PaperUI.paperPanel.add(scroll);
+        PaperUI.paperPanel.revalidate();
+    }
+    
+    
+    
+     public void displaySharedFiles() throws SQLException
+     {
+    
+         System.out.println("callllllllllllllled");
+         
+        if(AccessUI.sharedPanel.getComponentCount() > 0)
+            AccessUI.sharedPanel.removeAll();
+        
+        
+        ResultSet fileSet = Storage.getInstance().getAccessFiles(Authentication.online_user.getEmail());
+        ArrayList<String> fileIds = new ArrayList<String>();
+        
+        
+        int rows = 0;
+        while(fileSet.next())
+        {
+            rows++;
+            fileIds.add(fileSet.getString("file_id"));
+            System.out.println(fileSet.getString("file_id"));
+        }
+        
+        rows *= 2;
+        
+        JPanel subPanel = new JPanel();
+        if(rows < 10)
+            rows = 10;
+        subPanel.setLayout(new GridLayout(rows , 2 , 20 , 0));
+       
+        for(String file_id : fileIds)
+        {
+            
+            String type = Storage.getInstance().loadFileType(file_id);
+            String fileName = Storage.getInstance().loadFileName(file_id);
+            System.out.println(type);
+            System.out.println(fileName);
+            
+            if(type.equals("pdf"))
+            {
+                JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/pdf_logo.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(fileName + ".pdf");
+                name.setName(file_id);
+                    name.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) 
+                    {
+                        
+                        
+                        File f = new File("./src/CloudStorage/" + e.getComponent().getName() + ".pdf");
+        
+                        if(!Desktop.isDesktopSupported())
+                        {
+                            System.out.println("Desktop is not supported");
+                            return;
+                        }
+
+                        Desktop desktop = Desktop.getDesktop();
+                        if(f.exists())
+                            try {
+                                desktop.open(f);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        else
+                            System.out.println("no file");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        e.getComponent().setForeground(Color.BLUE);
+                        
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 13));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLACK);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 12));
+                    
+                    }
+                });
+            
+                panelContainer.add(name);
+              
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+              
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+                
+            }
+            ///
+            else if(type.equals("text"))
+            {
+                System.out.println("textcalled");
+                JPanel panelContainer = new JPanel(new GridLayout(1,4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/text_logo.PNG")));
+                panelContainer.add(icon);
+               
+                
+                JLabel name = new JLabel(fileName + ".txt");
+                name.setName(file_id);
+                 name.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) 
+                    {
+                        File f = new File("./src/CloudStorage/" + e.getComponent().getName() + ".txt");
+        
+                        if(!Desktop.isDesktopSupported())
+                        {
+                            System.out.println("Desktop is not supported");
+                            return;
+                        }
+
+                        Desktop desktop = Desktop.getDesktop();
+                        if(f.exists())
+                            try {
+                                desktop.open(f);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        else
+                            System.out.println("no file");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLUE);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 13));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLACK);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 12));
+                    }
+                });
+               
+                panelContainer.add(name);
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+                
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+        
+            }
+            else if(type.equals("video"))
+            {                
+                JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/video_file.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(fileName + ".mp4");
+                name.setName(file_id);
+                name.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) 
+                    {
+                        
+                        File f = new File("./src/CloudStorage/" + e.getComponent().getName() + ".mp4");
+                                
+                        if(!Desktop.isDesktopSupported())
+                        {
+                            System.out.println("Desktop is not supported");
+                            return;
+                        }
+
+                        Desktop desktop = Desktop.getDesktop();
+                        if(f.exists())
+                            try {
+                                desktop.open(f);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        else
+                            System.out.println("no file");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLUE);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 13));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLACK);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 12));
+                    }
+                });
+                
+                panelContainer.add(name);
+                
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+               
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+            }
+            else if(type.equals("image"))
+            {
+                
+                JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/img_file.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(fileName + ".png");
+                name.setName(file_id);
+                name.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) 
+                    {
+                        System.out.println(e.getComponent().getName());        
+                        File f = new File("./src/CloudStorage/" + e.getComponent().getName() + ".png");
+        
+                        if(!Desktop.isDesktopSupported())
+                        {
+                            System.out.println("Desktop is not supported");
+                            return;
+                        }
+
+                        Desktop desktop = Desktop.getDesktop();
+                        if(f.exists())
+                            try {
+                                desktop.open(f);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        else
+                            System.out.println("no file");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLUE);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 13));
+                        
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        
+                        e.getComponent().setForeground(Color.BLACK);
+                        ((JLabel) e.getComponent()).setFont(new java.awt.Font("Dialog", Font.BOLD , 12));
+                        
+                    }
+                });
+                
+                panelContainer.add(name);
+                
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+               
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+            }
+            
+        }
+        
+        JScrollPane scroll = new JScrollPane(subPanel , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setBackground(Color.WHITE);
+        scroll.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+        subPanel.setBackground(Color.WHITE);
+        
+        scroll.setBounds(0, 0, 534, 418);
+        AccessUI.sharedPanel.setPreferredSize(new Dimension(534, 418));
+        AccessUI.sharedPanel.add(scroll);
+        AccessUI.sharedPanel.revalidate();
+    }
+   
     
     
 }

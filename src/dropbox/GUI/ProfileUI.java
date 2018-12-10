@@ -37,6 +37,8 @@ public class ProfileUI extends javax.swing.JPanel {
         updateInfo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         notificationLabel = new javax.swing.JLabel();
+        paperLabel = new javax.swing.JLabel();
+        sharedAccess = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
@@ -88,6 +90,22 @@ public class ProfileUI extends javax.swing.JPanel {
             }
         });
 
+        paperLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        paperLabel.setText("Paper");
+        paperLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paperLabelMouseClicked(evt);
+            }
+        });
+
+        sharedAccess.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        sharedAccess.setText("Shared Access");
+        sharedAccess.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sharedAccessMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,12 +119,15 @@ public class ProfileUI extends javax.swing.JPanel {
                             .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(notificationLabel)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(filesLabel)
-                                .addComponent(updateInfo)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(paperLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(notificationLabel)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(filesLabel)
+                                    .addComponent(updateInfo)))
+                            .addComponent(sharedAccess))))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,7 +143,11 @@ public class ProfileUI extends javax.swing.JPanel {
                 .addComponent(updateInfo)
                 .addGap(18, 18, 18)
                 .addComponent(notificationLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(paperLabel)
+                .addGap(18, 18, 18)
+                .addComponent(sharedAccess)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -217,6 +242,16 @@ public class ProfileUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void paperLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperLabelMouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("paper");
+    }//GEN-LAST:event_paperLabelMouseClicked
+
+    private void sharedAccessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sharedAccessMouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("access");
+    }//GEN-LAST:event_sharedAccessMouseClicked
+
     
     public void setProfileAttributes(String username)
     {
@@ -236,6 +271,8 @@ public class ProfileUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel notificationLabel;
+    private javax.swing.JLabel paperLabel;
+    private javax.swing.JLabel sharedAccess;
     private javax.swing.JLabel updateInfo;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables
