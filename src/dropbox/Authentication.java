@@ -9,6 +9,8 @@ public class Authentication
 {
     private static Authentication auth_obj = null;
     public static User online_user = null;
+    public static Admin online_admin = null;
+    
     
     private Authentication(){}
     
@@ -133,6 +135,31 @@ public class Authentication
         
         return true;
     }
+    
+     public void Adminlogin(String email, String password) throws SQLException 
+    {
+
+        if(checkLoginConstraints(email , password))
+        { 
+            if(email.equals("admin@gmail.com") &&  password.equals("123456") )
+            {      System.out.println(password + "   "+  email);
+
+              online_user=null;
+              online_admin= new Admin("admin" , email , password);
+            GUI.getForm().loadPanel("admin");
             
+            }
+            else if (email=="admin@gmail.com")
+             {
+              Toast t = new Toast("Invalid Password", 495, 505);
+               t.showtoast();
+             }
+            else
+            {
+                Toast t = new Toast("You are not admin", 495, 505);
+               t.showtoast();
+            }
+        }    
+    }
     
 }

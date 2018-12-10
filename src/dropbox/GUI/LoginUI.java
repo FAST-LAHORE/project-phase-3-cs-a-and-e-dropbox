@@ -44,6 +44,7 @@ public class LoginUI extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
+        adminLogin = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(97, 8, 43));
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -84,6 +85,15 @@ public class LoginUI extends javax.swing.JPanel {
             }
         });
 
+        adminLogin.setBackground(new java.awt.Color(0, 0, 0));
+        adminLogin.setForeground(new java.awt.Color(255, 255, 255));
+        adminLogin.setText("Admin Sign in");
+        adminLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,7 +110,8 @@ public class LoginUI extends javax.swing.JPanel {
                         .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(adminLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,6 +135,8 @@ public class LoginUI extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(adminLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -168,8 +181,22 @@ public class LoginUI extends javax.swing.JPanel {
         GUI.getForm().loadPanel("signup");// TODO add your handling code here:
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void adminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLoginActionPerformed
+        // TODO add your handling code here:
+         String password = new String(passwordField.getPassword());
+         String email = emailField.getText();
+          try {
+
+            Authentication.getInstance().Adminlogin(email , password);
+       
+          } catch (SQLException ex) {
+            Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_adminLoginActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adminLogin;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

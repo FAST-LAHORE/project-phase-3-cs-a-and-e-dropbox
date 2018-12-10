@@ -77,7 +77,7 @@ public abstract class AbstractFile extends FileSystemElement
         
     }
     
-    
+    public abstract void download(String receivedID);
     
     public abstract void upload(String uploadPath) throws Exception;
     

@@ -313,8 +313,6 @@ public class Storage
         builder.append(Storage.SHARED_FILE_TABLE);
         builder.append(" VALUES (");
        
-        
-       
         builder.append("\'");
         builder.append(sender);
         builder.append("\' , ");
@@ -327,11 +325,9 @@ public class Storage
         builder.append(UUID.randomUUID().toString());
         builder.append("\' , ");
         
-        
         builder.append("\'");
         builder.append(file_id);
         builder.append("\')");
-        
         
         storage.dbStatment.executeUpdate(builder.toString());
    
@@ -344,10 +340,19 @@ public class Storage
    
     }
     
+    
     public void deleteSharedFile(String file_id) throws SQLException
     {
         String sql = "DELETE FROM " + Storage.SHARED_FILE_TABLE + " WHERE file_id = \'" + file_id + "\'";
         storage.dbStatment.executeUpdate(sql);
+    }
+    
+    public ResultSet loadAllUsers() throws SQLException
+    {    
+        String sql = "SELECT  EMAIL , USERNAME FROM " + Storage.USERS_TABLE ;//+  "\'";
+        ResultSet users = storage.dbStatment.executeQuery(sql); 
+       
+       return users;
     }
     
 }

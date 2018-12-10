@@ -116,6 +116,30 @@ public class GUI
             instance.frame.setContentPane(instance.container);
             
         }
+        else if(panelType.toLowerCase().equals("admin"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            instance.jp=new AdminUI();
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
+        else if(panelType.toLowerCase().equals("allusers"))
+        {
+            if(instance.container.getComponentCount() > 0)
+                instance.container.removeAll();
+         
+            try {
+                instance.jp=new AllusersUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            instance.container.add(instance.jp);
+            instance.frame.setContentPane(instance.container);
+            
+        }
         
         
      
