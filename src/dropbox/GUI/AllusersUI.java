@@ -69,6 +69,7 @@ public class AllusersUI extends javax.swing.JPanel {
         table = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        DeleteUser = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(800, 600));
@@ -225,23 +226,45 @@ public class AllusersUI extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jTextPane1);
 
+        DeleteUser.setText("Delete User");
+        DeleteUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteUserMouseClicked(evt);
+            }
+        });
+        DeleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout displayUserLayout = new javax.swing.GroupLayout(displayUser);
         displayUser.setLayout(displayUserLayout);
         displayUserLayout.setHorizontalGroup(
             displayUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(displayUserLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                .addGroup(displayUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(displayUserLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
+                    .addGroup(displayUserLayout.createSequentialGroup()
+                        .addGap(338, 338, 338)
+                        .addComponent(DeleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(314, 314, 314))
         );
         displayUserLayout.setVerticalGroup(
             displayUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayUserLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(206, 206, 206))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(displayUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayUserLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(206, 206, 206))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayUserLayout.createSequentialGroup()
+                        .addComponent(DeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(196, 196, 196))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -284,6 +307,47 @@ public class AllusersUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_backLabelMouseClicked
 
+    private void DeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteUserActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_DeleteUserActionPerformed
+
+    private void DeleteUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteUserMouseClicked
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+         int row1 = evt.getY();
+          int sel;
+     DefaultTableModel model = (DefaultTableModel)table.getModel();
+
+       int selectedRowIndex = table.getSelectedRow();
+
+       // System.out.println(" at row #"+ row1  +"   "+ selectedRowIndex+ " "+table.rowAtPoint(evt.getPoint()) );
+
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm Delete Selected User?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+
+            int column = table.getColumnModel().getColumnIndexAtX(evt.getX());
+            int row = table.getSelectedRow();
+            if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
+                
+                Object rowValue = table.getValueAt(row, column);
+            //    System.out.println(" at row #"+ row+"  row value " + table.getValueAt(row, 0));// 0 column
+                try {
+                    Authentication.online_admin.DeleteUser((String) rowValue);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AllusersUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                DefaultTableModel tableModel = (DefaultTableModel) this.table.getModel();
+                int[] selectedRows = table.getSelectedRows();
+                for (int i = 0; i < selectedRows.length; i++) {
+                    tableModel.removeRow(selectedRows[i]);
+                }
+
+            }
+        }
+
+
+    }//GEN-LAST:event_DeleteUserMouseClicked
+
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel3MouseClicked
@@ -291,6 +355,7 @@ public class AllusersUI extends javax.swing.JPanel {
         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DeleteUser;
     private javax.swing.JLabel backLabel;
     public static javax.swing.JPanel displayUser;
     private javax.swing.JLabel homeLabel;

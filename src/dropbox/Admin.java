@@ -83,4 +83,8 @@ public class Admin {
      }
     
     
+    public void DeleteUser(String email) throws SQLException
+    {
+       Storage.getInstance().DeleteUser ( email);    
+    }    
 }

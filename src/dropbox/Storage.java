@@ -264,7 +264,12 @@ public class Storage
        return name.getString("name");
     }
             
-            
+    
+    public void DeleteUser (String email) throws SQLException
+    {
+      String sql = "DELETE FROM " + Storage.USERS_TABLE +" WHERE EMAIL = \'" + email + "\'";
+      storage.dbStatment.executeUpdate(sql);
+    }        
     
     public ResultSet loadContainerUsingFileName(String fileName) throws SQLException
     {
