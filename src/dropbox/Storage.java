@@ -3,6 +3,7 @@ package dropbox;
 import java.io.File;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Storage 
 {
@@ -13,6 +14,7 @@ public class Storage
     private static String ACCOUNT_TABLE = "account";
     private static String FOLDER_TABLE = "folder";
     private static String FILE_TABLE = "file";
+    private static String SHARED_FILE_TABLE = "shared_files";
     
     
     
@@ -302,6 +304,50 @@ public class Storage
         
         storage.dbStatment.executeUpdate(builder.toString());
         
+    }
+    
+    public void addShareFile(String sender , String receiver , String file_id) throws SQLException
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("INSERT INTO ");
+        builder.append(Storage.SHARED_FILE_TABLE);
+        builder.append(" VALUES (");
+       
+        
+       
+        builder.append("\'");
+        builder.append(sender);
+        builder.append("\' , ");
+        
+        builder.append("\'");
+        builder.append(receiver);
+        builder.append("\' , ");
+         
+         builder.append("\'");
+        builder.append(UUID.randomUUID().toString());
+        builder.append("\' , ");
+        
+        
+        builder.append("\'");
+        builder.append(file_id);
+        builder.append("\')");
+        
+        
+        storage.dbStatment.executeUpdate(builder.toString());
+   
+    }
+   
+    public ResultSet getNotfications(String receiver) throws SQLException
+    {
+       String sql = "SELECT * FROM " + Storage.SHARED_FILE_TABLE + " WHERE receiver = \'" + receiver + "\'";
+       return storage.dbStatment.executeQuery(sql);
+   
+    }
+    
+    public void deleteSharedFile(String file_id) throws SQLException
+    {
+        String sql = "DELETE FROM " + Storage.SHARED_FILE_TABLE + " WHERE file_id = \'" + file_id + "\'";
+        storage.dbStatment.executeUpdate(sql);
     }
     
 }

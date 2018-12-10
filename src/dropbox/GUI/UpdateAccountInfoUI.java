@@ -50,6 +50,7 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
         homeLabel = new javax.swing.JLabel();
         filesLabel = new javax.swing.JLabel();
         updateInfo = new javax.swing.JLabel();
+        notificationLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -69,9 +70,7 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
 
         jDialog1.setTitle("Change your information");
         jDialog1.setBackground(new java.awt.Color(246, 249, 252));
-        jDialog1.setMaximumSize(new java.awt.Dimension(300, 280));
         jDialog1.setMinimumSize(new java.awt.Dimension(300, 280));
-        jDialog1.setPreferredSize(new java.awt.Dimension(300, 280));
         jDialog1.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 jDialog1WindowClosing(evt);
@@ -164,6 +163,14 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
         updateInfo.setForeground(new java.awt.Color(102, 153, 255));
         updateInfo.setText("Update Info");
 
+        notificationLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notificationLabel.setText("Notifications");
+        notificationLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notificationLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,14 +178,16 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(homeLabel)
-                            .addComponent(filesLabel)
-                            .addComponent(updateInfo)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(notificationLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(homeLabel)
+                                .addComponent(filesLabel)
+                                .addComponent(updateInfo)))))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,6 +201,8 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
                 .addComponent(filesLabel)
                 .addGap(18, 18, 18)
                 .addComponent(updateInfo)
+                .addGap(18, 18, 18)
+                .addComponent(notificationLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -512,6 +523,11 @@ public class UpdateAccountInfoUI extends javax.swing.JPanel {
         dialogType = -1;
     }//GEN-LAST:event_jDialog1WindowClosing
 
+    private void notificationLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationLabelMouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("notification");
+    }//GEN-LAST:event_notificationLabelMouseClicked
+
     
 int dialogType;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -537,6 +553,7 @@ int dialogType;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField newInfoDialog;
+    private javax.swing.JLabel notificationLabel;
     private javax.swing.JPasswordField passwordDialog;
     private javax.swing.JLabel passwordPLaceholder;
     private javax.swing.JButton updateDialog;

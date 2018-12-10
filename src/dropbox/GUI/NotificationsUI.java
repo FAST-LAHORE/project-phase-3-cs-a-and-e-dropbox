@@ -1,24 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dropbox.GUI;
 
 import dropbox.Authentication;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author Aiman Nawaz
- */
-public class ProfileUI extends javax.swing.JPanel {
+public class NotificationsUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form Home
+     * Creates new form NotificationsUI
      */
-    public ProfileUI() {
+    public NotificationsUI() {
         initComponents();
+        
         userNameLabel.setText(Authentication.online_user.getUserName());
+        try {
+            Authentication.online_user.getUserAccount().displayNotifications();
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationsUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
+        
     }
 
     /**
@@ -35,25 +37,28 @@ public class ProfileUI extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         filesLabel = new javax.swing.JLabel();
         updateInfo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         notificationLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        notificationsPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMaximumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBackground(new java.awt.Color(247, 249, 250));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/dropbox_logo.PNG"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 153, 255));
         jLabel2.setText("Home");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         filesLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         filesLabel.setText("Files");
@@ -71,16 +76,8 @@ public class ProfileUI extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 97, 240));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Logout");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         notificationLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notificationLabel.setForeground(new java.awt.Color(102, 153, 255));
         notificationLabel.setText("Notifications");
         notificationLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -95,18 +92,15 @@ public class ProfileUI extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel2)
+                            .addComponent(filesLabel)
+                            .addComponent(updateInfo)
+                            .addComponent(notificationLabel)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(notificationLabel)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(filesLabel)
-                                .addComponent(updateInfo)))))
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel1)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,16 +116,11 @@ public class ProfileUI extends javax.swing.JPanel {
                 .addComponent(updateInfo)
                 .addGap(18, 18, 18)
                 .addComponent(notificationLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addContainerGap(375, Short.MAX_VALUE))
         );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Home");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel7.setText("Welcome");
+        jLabel6.setText("Notifications");
 
         userNameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         userNameLabel.setText("Username ");
@@ -141,7 +130,20 @@ public class ProfileUI extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(240, 240, 240));
         jLabel9.setText("__________________________________________________________________________________________");
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/footer.PNG"))); // NOI18N
+        notificationsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        notificationsPanel.setMaximumSize(new java.awt.Dimension(502, 391));
+        notificationsPanel.setMinimumSize(new java.awt.Dimension(502, 391));
+
+        javax.swing.GroupLayout notificationsPanelLayout = new javax.swing.GroupLayout(notificationsPanel);
+        notificationsPanel.setLayout(notificationsPanelLayout);
+        notificationsPanelLayout.setHorizontalGroup(
+            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 502, Short.MAX_VALUE)
+        );
+        notificationsPanelLayout.setVerticalGroup(
+            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 391, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -153,27 +155,22 @@ public class ProfileUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(userNameLabel))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8)))
-                                .addGap(134, 134, 134))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(userNameLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8)))
+                        .addGap(134, 134, 134))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(117, 117, 117))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(notificationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,16 +180,13 @@ public class ProfileUI extends javax.swing.JPanel {
                 .addComponent(userNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel7))
+                    .addComponent(jLabel8)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(70, 70, 70)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(notificationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -203,39 +197,29 @@ public class ProfileUI extends javax.swing.JPanel {
 
     private void updateInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateInfoMouseClicked
         GUI.getForm().loadPanel("updateinfo");
-// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_updateInfoMouseClicked
 
     private void notificationLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationLabelMouseClicked
         // TODO add your handling code here:
-        GUI.getForm().loadPanel("notification");
     }//GEN-LAST:event_notificationLabelMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Authentication.online_user=null;
-        GUI.getForm().loadPanel("login");
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        GUI.getForm().loadPanel("profile");
+    }//GEN-LAST:event_jLabel2MouseClicked
 
-    
-    public void setProfileAttributes(String username)
-    {
-        userNameLabel.setText(username);
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel filesLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel notificationLabel;
+    public static javax.swing.JPanel notificationsPanel;
     private javax.swing.JLabel updateInfo;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables

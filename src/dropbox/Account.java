@@ -6,6 +6,7 @@ import static dropbox.GUI.FilesUI.contentArea;
 import static dropbox.GUI.FilesUI.filePanel;
 import static dropbox.GUI.FilesUI.pathLabel;
 import dropbox.GUI.GUI;
+import dropbox.GUI.NotificationsUI;
 import dropbox.GUI.ProfileUI;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -43,7 +44,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar.Separator;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
-
+import java.util.*;
 
 public abstract class Account
 {
@@ -51,7 +52,8 @@ public abstract class Account
     private Folder rootFolder;
     private int noOfFiles;
     ProfileUI profilePanel;
-   
+    
+    
     public Account(String id , String rootFolderId , int noOfFiles) throws SQLException
     {
         this.id = id;
@@ -224,7 +226,29 @@ public abstract class Account
                 });
                 optionsMenu.add(deleteItem);
                 
-               
+             
+                JMenuItem shareItem = new JMenuItem("Share");
+                shareItem.setActionCommand(file.getId());
+                shareItem.setBackground(Color.WHITE);
+                shareItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            FilesUI.displayShareNameDialog(fileID);
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(shareItem);
+             
+                
                 
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
@@ -312,7 +336,27 @@ public abstract class Account
                 });
                 optionsMenu.add(deleteItem);
                 
-                
+                JMenuItem shareItem = new JMenuItem("Share");
+                shareItem.setActionCommand(file.getId());
+                shareItem.setBackground(Color.WHITE);
+                shareItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            FilesUI.displayShareNameDialog(fileID);
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(shareItem);
+            
                 
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
@@ -398,6 +442,28 @@ public abstract class Account
                 optionsMenu.add(deleteItem);
                 
                 
+                JMenuItem shareItem = new JMenuItem("Share");
+                shareItem.setActionCommand(file.getId());
+                shareItem.setBackground(Color.WHITE);
+                shareItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            FilesUI.displayShareNameDialog(fileID);
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(shareItem);
+            
+                
                 bar.add(optionsMenu);
                 panelContainer.add(bar);
                
@@ -481,7 +547,27 @@ public abstract class Account
                 });
                 optionsMenu.add(deleteItem);
                 
-                
+                JMenuItem shareItem = new JMenuItem("Share");
+                shareItem.setActionCommand(file.getId());
+                shareItem.setBackground(Color.WHITE);
+                shareItem.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        try
+                        {
+                            String fileID = e.getActionCommand();
+                            FilesUI.displayShareNameDialog(fileID);
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                optionsMenu.add(shareItem);
+            
                 
                 
                 bar.add(optionsMenu);
@@ -508,7 +594,150 @@ public abstract class Account
         FilesUI.filePanel.revalidate();
     }
     
+   
     
+    public void displayNotifications() throws SQLException
+    {
+        if(NotificationsUI.notificationsPanel.getComponentCount() > 0)
+            NotificationsUI.notificationsPanel.removeAll();
+        
+        
+        ResultSet notifications = Storage.getInstance().getNotfications(Authentication.online_user.getEmail());
+        ArrayList<String> sender = new ArrayList<String>();
+        ArrayList<String> receivedFiles = new ArrayList<String>();
+        
+        
+        int rows = 0;
+        while(notifications.next())
+        {
+            rows++;
+            sender.add(notifications.getString("sender"));
+            receivedFiles.add(notifications.getString("file_id"));
+        }
+        System.out.println(sender.size());
+        
+        rows *= 2;
+        
+        JPanel subPanel = new JPanel();
+        if(rows < 10)
+            rows = 10;
+        subPanel.setLayout(new GridLayout(rows , 2 , 20 , 0));
+       
+        for(int i = 0 ; i < sender.size() ; i++)
+        {
+            String receivedFileId = receivedFiles.get(i);
+            String receivedFileName = Storage.getInstance().loadFileName(receivedFileId);
+            String type = Storage.getInstance().loadFileType(receivedFileId);
+            
+            if(type.equals("pdf"))
+            {
+                JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/pdf_logo.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(receivedFileName + ".pdf");
+                panelContainer.add(name);
+              
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                          
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+                
+            }
+            ///
+            else if(type.equals("text"))
+            {
+                JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/text_logo.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(receivedFileName + ".txt");
+                panelContainer.add(name);
+              
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+              
+            }
+            else if(type.equals("video"))
+            {                
+                 JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/video_file.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(receivedFileName + ".mp4");
+                panelContainer.add(name);
+              
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+                
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+              
+            }
+            else if(type.equals("image"))
+            {
+                
+                 JPanel panelContainer = new JPanel(new GridLayout(1 , 4));
+                panelContainer.setBackground(Color.WHITE);
+        
+                JLabel icon = new JLabel();    
+                icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dropbox/images/img_file.PNG")));
+                panelContainer.add(icon);
+                
+                JLabel name = new JLabel(receivedFileName + ".png");
+                panelContainer.add(name);
+              
+                
+                panelContainer.add(Box.createRigidArea(new Dimension(5 , 0)));
+                
+                panelContainer.setBackground(Color.WHITE);
+                subPanel.add(panelContainer);
+                
+                JLabel line = new JLabel("  __________________________________________________________________________  ");
+                line.setForeground(new Color(230 , 232 , 235));
+                subPanel.add(line);
+              
+            }
+        }
+        
+        
+        
+        JScrollPane scroll = new JScrollPane(subPanel , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setBackground(Color.WHITE);
+        scroll.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+        subPanel.setBackground(Color.WHITE);
+        
+        scroll.setBounds(0, 0, 534, 418);
+        NotificationsUI.notificationsPanel.setPreferredSize(new Dimension(534, 418));
+        NotificationsUI.notificationsPanel.add(scroll);
+        NotificationsUI.notificationsPanel.revalidate();
+    }
     
     
     

@@ -81,5 +81,35 @@ public abstract class AbstractFile extends FileSystemElement
     
     public abstract void upload(String uploadPath) throws Exception;
     
+    public static boolean shareFile(String receiver , String fileID) throws SQLException
+    {
+        if(receiver.isEmpty())
+        {
+            Toast t = new Toast("Enter receiver's email" , 495 , 505);
+            t.showtoast();
+            return false;
+        }
+        
+        if(receiver.equals(Authentication.online_user.getEmail()))
+        {
+            Toast t = new Toast("Sender and receiver can't be same" , 495 , 505);
+            t.showtoast();
+            return false;
+        }
+        
+        
+        if(!Storage.getInstance().isUserRegistered(receiver))
+        {
+            Toast t = new Toast("Receiver's email is not found on DropBox" , 495 , 505);
+            t.showtoast();
+            return false;
+        }
+        
+        Storage.getInstance().addShareFile(Authentication.online_user.getEmail() , receiver , fileID);
+        return true;
+    }
+    
+      
+    
     
 }

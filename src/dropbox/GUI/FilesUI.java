@@ -57,6 +57,7 @@ public class FilesUI extends javax.swing.JPanel {
         nameDialog.setVisible(false);
         createFilePanel.setVisible(false);
         newFolderDialog.setVisible(false);
+        shareFileDialog.setVisible(false);
         editFilePanel.setVisible(false);
         userNameLabel.setText( Authentication.online_user.getUserName());
         Authentication.online_user.getUserAccount().displayFiles(Authentication.online_user.getUserAccount().getRootFolder());
@@ -81,6 +82,11 @@ public class FilesUI extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         cancelNewFolderDialog = new javax.swing.JButton();
         saveNewFolderDialog = new javax.swing.JButton();
+        shareFileDialog = new javax.swing.JDialog();
+        receiverEmailDialog = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cancelShareFileDialogButton = new javax.swing.JButton();
+        sendShareFileDialogButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         homeLabel = new javax.swing.JLabel();
@@ -89,6 +95,7 @@ public class FilesUI extends javax.swing.JPanel {
         createFileButton = new javax.swing.JButton();
         uploadFileButton = new javax.swing.JButton();
         newFolder = new javax.swing.JLabel();
+        notificationLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -246,6 +253,75 @@ public class FilesUI extends javax.swing.JPanel {
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
+        shareFileDialog.setTitle("Share File");
+        shareFileDialog.setAlwaysOnTop(true);
+        shareFileDialog.setBackground(new java.awt.Color(246, 249, 252));
+        shareFileDialog.setLocation(new java.awt.Point(320, 180));
+        shareFileDialog.setMinimumSize(new java.awt.Dimension(284, 250));
+        shareFileDialog.setResizable(false);
+        shareFileDialog.setSize(new java.awt.Dimension(284, 250));
+        shareFileDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                shareFileDialogWindowClosing(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Share To:");
+
+        cancelShareFileDialogButton.setBackground(new java.awt.Color(0, 97, 240));
+        cancelShareFileDialogButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancelShareFileDialogButton.setText("Cancel");
+        cancelShareFileDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelShareFileDialogButtonActionPerformed(evt);
+            }
+        });
+
+        sendShareFileDialogButton.setBackground(new java.awt.Color(0, 97, 240));
+        sendShareFileDialogButton.setForeground(new java.awt.Color(255, 255, 255));
+        sendShareFileDialogButton.setText("Send");
+        sendShareFileDialogButton.setMaximumSize(new java.awt.Dimension(65, 23));
+        sendShareFileDialogButton.setMinimumSize(new java.awt.Dimension(65, 23));
+        sendShareFileDialogButton.setPreferredSize(new java.awt.Dimension(65, 23));
+        sendShareFileDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendShareFileDialogButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout shareFileDialogLayout = new javax.swing.GroupLayout(shareFileDialog.getContentPane());
+        shareFileDialog.getContentPane().setLayout(shareFileDialogLayout);
+        shareFileDialogLayout.setHorizontalGroup(
+            shareFileDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shareFileDialogLayout.createSequentialGroup()
+                .addGroup(shareFileDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(shareFileDialogLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(shareFileDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(receiverEmailDialog, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shareFileDialogLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(sendShareFileDialogButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelShareFileDialogButton)))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        shareFileDialogLayout.setVerticalGroup(
+            shareFileDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shareFileDialogLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(receiverEmailDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(shareFileDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sendShareFileDialogButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelShareFileDialogButton))
+                .addContainerGap(101, Short.MAX_VALUE))
+        );
+
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -299,6 +375,14 @@ public class FilesUI extends javax.swing.JPanel {
             }
         });
 
+        notificationLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notificationLabel.setText("Notifications");
+        notificationLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notificationLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -306,17 +390,19 @@ public class FilesUI extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(homeLabel)
-                            .addComponent(jLabel3)
-                            .addComponent(updateInfo)
-                            .addComponent(uploadFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(createFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(newFolder)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(notificationLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(homeLabel)
+                                .addComponent(jLabel3)
+                                .addComponent(updateInfo)
+                                .addComponent(uploadFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(createFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(newFolder)))))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -330,6 +416,8 @@ public class FilesUI extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(updateInfo)
+                .addGap(18, 18, 18)
+                .addComponent(notificationLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(newFolder)
                 .addGap(18, 18, 18)
@@ -856,6 +944,81 @@ public class FilesUI extends javax.swing.JPanel {
 // TODO add your handling code here:
     }//GEN-LAST:event_updateInfoMouseClicked
 
+    private void cancelShareFileDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelShareFileDialogButtonActionPerformed
+        // TODO add your handling code here:
+        
+        jPanel1.setVisible(true);
+        filePanel.setVisible(true);
+        jLabel6.setVisible(true);
+        userNameLabel.setVisible(true);
+        jLabel8.setVisible(true);
+        pathLabel.setVisible(true);
+        backLabel.setVisible(true);
+        
+        shareFileDialog.setVisible(false);
+    }//GEN-LAST:event_cancelShareFileDialogButtonActionPerformed
+    
+    private void sendShareFileDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendShareFileDialogButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            
+            String receiver = receiverEmailDialog.getText();
+            if(AbstractFile.shareFile(receiver , receiverEmailDialog.getName()))
+            {
+                
+                jPanel1.setVisible(true);
+                filePanel.setVisible(true);
+                jLabel6.setVisible(true);
+                userNameLabel.setVisible(true);
+                jLabel8.setVisible(true);
+                pathLabel.setVisible(true);
+                backLabel.setVisible(true);
+                
+                shareFileDialog.setVisible(false);        
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FilesUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+    }//GEN-LAST:event_sendShareFileDialogButtonActionPerformed
+
+    private void shareFileDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_shareFileDialogWindowClosing
+        // TODO add your handling code here:
+        
+        jPanel1.setVisible(true);
+        filePanel.setVisible(true);
+        jLabel6.setVisible(true);
+        userNameLabel.setVisible(true);
+        jLabel8.setVisible(true);
+        pathLabel.setVisible(true);
+        backLabel.setVisible(true);
+        
+        shareFileDialog.setVisible(false);
+        
+    }//GEN-LAST:event_shareFileDialogWindowClosing
+
+    private void notificationLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationLabelMouseClicked
+        // TODO add your handling code here:
+        GUI.getForm().loadPanel("notification");
+    }//GEN-LAST:event_notificationLabelMouseClicked
+
+    public static void displayShareNameDialog(String fileID)
+    {
+        jPanel1.setVisible(false);
+        filePanel.setVisible(false);
+        jLabel6.setVisible(false);
+        userNameLabel.setVisible(false);
+        jLabel8.setVisible(false);
+        pathLabel.setVisible(false);
+        backLabel.setVisible(false);
+        
+        shareFileDialog.setVisible(true);
+        receiverEmailDialog.setName(fileID);
+        receiverEmailDialog.setText("");
+        
+    }
+    
+    
     
     public static void displayEditNameDialog(String fileID)
     {
@@ -890,6 +1053,7 @@ public class FilesUI extends javax.swing.JPanel {
     private javax.swing.JLabel cancelFileEdit;
     private javax.swing.JButton cancelNameDialogButton;
     private javax.swing.JButton cancelNewFolderDialog;
+    private javax.swing.JButton cancelShareFileDialogButton;
     public static javax.swing.JTextArea contentArea;
     public static javax.swing.JTextArea contentArea1;
     private javax.swing.JButton createFileButton;
@@ -903,6 +1067,7 @@ public class FilesUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     public static javax.swing.JLabel jLabel6;
     public static javax.swing.JLabel jLabel8;
     public static javax.swing.JPanel jPanel1;
@@ -913,11 +1078,15 @@ public class FilesUI extends javax.swing.JPanel {
     public static javax.swing.JDialog newFolderDialog;
     public static javax.swing.JTextField newFolderDialogField;
     public static javax.swing.JTextField newNameDialogLabel;
+    private javax.swing.JLabel notificationLabel;
     public static javax.swing.JLabel pathLabel;
+    public static javax.swing.JTextField receiverEmailDialog;
     public static javax.swing.JButton saveButton;
     public static javax.swing.JButton saveEditsButton;
     private javax.swing.JButton saveNameDialogButton;
     private javax.swing.JButton saveNewFolderDialog;
+    private javax.swing.JButton sendShareFileDialogButton;
+    public static javax.swing.JDialog shareFileDialog;
     private javax.swing.JLabel updateInfo;
     private javax.swing.JButton uploadFileButton;
     public static javax.swing.JLabel userNameLabel;
